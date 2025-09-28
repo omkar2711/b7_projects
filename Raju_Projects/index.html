@@ -4,43 +4,614 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Portfolio</title>
+    <title>My Portfolio</title>
+    <link rel="icon" type="image/x-icon" href="./assets/RP Logo.png">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ffffff;
+            --secondary-color: #8b7355;
+            --accent-color: #a52a2a;
+            --light-color: #f5f5f5;
+            --dark-color: #2c2c2c;
+            --vintage-brown: #6d4c41;
+            --cream: #f9f7f2;
+            --gold: #d4af37;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: var(--cream);
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .navbar {
+            background-color: var(--dark-color) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            color: var(--gold) !important;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            font-weight: 500;
+            margin: 0 10px;
+            transition: color 0.3s;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .navbar-dark .navbar-nav .nav-link:hover {
+            color: var(--gold);
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 180px 0 120px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(109, 76, 65, 0.3), rgba(139, 115, 85, 0.3));
+            z-index: 1;
+        }
+
+        .hero-section .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-section h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-section p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .profile-img {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--gold);
+            margin: 0 auto 30px;
+            display: block;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            font-weight: 700;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+            color: var(--vintage-brown);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 70%;
+            height: 3px;
+            background: var(--gold);
+            bottom: -10px;
+            left: 15%;
+        }
+
+        .about-section,
+        .skills-section,
+        .portfolio-section,
+        .contact-section {
+            padding: 100px 0;
+        }
+
+        .about-section {
+            background-color: var(--primary-color);
+            border-top: 1px solid rgba(139, 115, 85, 0.2);
+            border-bottom: 1px solid rgba(139, 115, 85, 0.2);
+        }
+
+        .skill-item {
+            margin-bottom: 20px;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--vintage-brown);
+        }
+
+        .progress {
+            height: 10px;
+            border-radius: 5px;
+            background-color: #e0e0e0;
+        }
+
+        .progress-bar {
+            background-color: var(--secondary-color);
+        }
+
+        .portfolio-item {
+            margin-bottom: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            background-color: var(--primary-color);
+            border: 1px solid rgba(139, 115, 85, 0.1);
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .portfolio-img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+            transition: transform 0.5s;
+        }
+
+        .portfolio-item:hover .portfolio-img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-item h5 {
+            color: var(--vintage-brown);
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--vintage-brown);
+            border-color: var(--vintage-brown);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-primary {
+            color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: white;
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            color: white;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            transform: translateY(-5px);
+        }
+
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .card {
+            border: 1px solid rgba(139, 115, 85, 0.1);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-body i {
+            color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-section p {
+                font-size: 1.1rem;
+            }
+
+            .profile-img {
+                width: 150px;
+                height: 150px;
+            }
+
+            .logo-img {
+                height: 30px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Navbar section -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Raju | Portfolio</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="assets/RP Logo.png" alt="Website Logo" class="logo-img">
+                | Portfolio
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link" href="#home">Home</a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <!-- Header section -->
-    <header class="header-container bg-light text-right p-5 d-flex justify-content-center align-items-center">
-        <!-- right part of the header -->
-        <div class="header-container justify-content-start me-5">
-            <h1 class="text-center mt-5">Raju Patil</h1>
-            <p class="text-center">Hi I am a software developer. I love to create web applications and explore new technologies.</p>
-        </div>
-        <!-- left part of the header -->
-        <div>
-            <img src="./assets/Man_image.jpg" class="img-fluid" alt="Man Image" height="500px" width="500px">
-        </div>
-    </header>
 
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <img src="assets/employee.jpeg" alt="Profile Picture" class="profile-img">
+            <h1>Raju Patil</h1>
+            <p class="lead">Full Stack Developer</p>
+            <div class="mt-4">
+                <a href="#contact" class="btn btn-primary btn-lg me-3">Get In Touch</a>
+                <a href="https://drive.google.com/file/d/1qy19wE7XKi8mU7TpSXXbtnU0Eosx7mml/view?usp=sharing" 
+                   class="btn btn-outline-light btn-lg">Download CV</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title text-center">About Me</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h3>Hello! I'm Raju Patil</h3>
+                    <p>I'm a passionate Full stack developer with hands-on experience creating beautiful and functional
+                        websites. I specialize in front-end development but also have experience with back-end
+                        technologies.</p>
+                    <p>My goal is to create digital experiences that are not only visually appealing but also
+                        user-friendly and accessible to everyone.</p>
+                    <p>When I'm not coding, you can find me exploring new technologies, reading tech blogs, or hiking in
+                        the mountains.</p>
+                    <a href="https://drive.google.com/file/d/1qy19wE7XKi8mU7TpSXXbtnU0Eosx7mml/view?usp=sharing"
+                        class="btn btn-outline-primary">Download CV</a>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row mt-4 mt-lg-0">
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-code fa-2x mb-3"></i>
+                                    <h5>Web Development</h5>
+                                    <p>Creating responsive and interactive websites</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-palette fa-2x mb-3"></i>
+                                    <h5>UI/UX Design</h5>
+                                    <p>Designing intuitive and beautiful user interfaces</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-mobile-alt fa-2x mb-3"></i>
+                                    <h5>Responsive Design</h5>
+                                    <p>Ensuring great experience on all devices</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-rocket fa-2x mb-3"></i>
+                                    <h5>Performance</h5>
+                                    <p>Optimizing websites for speed and efficiency</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
+        <div class="container">
+            <h2 class="section-title text-center">My Skills</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="skill-item">
+                        <div class="d-flex justify-content-between">
+                            <span class="skill-name">HTML/CSS</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="d-flex justify-content-between">
+                            <span class="skill-name">JavaScript</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="d-flex justify-content-between">
+                            <span class="skill-name">Bootstrap</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="skill-item">
+                        <div class="d-flex justify-content-between">
+                            <span class="skill-name">React</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="d-flex justify-content-between">
+                            <span class="skill-name">JAVA</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="d-flex justify-content-between">
+                            <span class="skill-name">DSA</span>
+                            <span>70%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="portfolio" class="portfolio-section">
+        <div class="container">
+            <h2 class="section-title text-center">My Projects</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="portfolio-item">
+                        <img src="assets/AI-Mushroom.png" alt="AI Mushroom Detection Project"
+                            class="portfolio-img">
+                        <div class="p-3">
+                            <h5>AI Mushroom Detection Project</h5>
+                            <p>A deep learning-based project for accurate visual classification of mushrooms into
+                                Boletus, Lactarius, and Russula species using transfer learning techniques.</p>
+                            <a href="https://github.com/Rajupatil9552/Ai-Mushroom-Detect-Project.git" class="btn btn-sm btn-outline-primary">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="portfolio-item">
+                        <img src="assets/cyber.jpg" alt="Project 2" class="portfolio-img">
+                        <div class="p-3">
+                            <h5>AI-Enhanced Intrusion Detection System</h5>
+                            <p>An advanced intrusion detection system utilizing AI for real-time threat detection and response.</p>
+                            <a href="https://github.com/Rajupatil9552/AI_based_Intrusion_Detection.git" class="btn btn-sm btn-outline-primary">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="portfolio-item">
+                        <img src="assets/chatbot.jpeg" alt="Project 3" class="portfolio-img">
+                        <div class="p-3">
+                            <h5>Chatoon – Real-Time Chat Application</h5>
+                            <p>Chatoon is a real-time Android chat app using Jetpack Compose and Firebase for secure messaging, user authentication, and chat room management</p>
+                            <a href="https://github.com/Rajupatil9552/Chat-App-Project.git" class="btn btn-sm btn-outline-primary">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="portfolio-item">
+                        <img src="assets/restrarunt.jpg" alt="Project 4" class="portfolio-img">
+                        <div class="p-3">
+                            <h5>Restaurant Recommendation System</h5>
+                            <p>A smart restaurant recommendation system using a hybrid model of collaborative and content-based filtering to deliver personalized, location-aware dining suggestions based on user preferences, budget, and dietary restrictions.</p>
+                            <a href="https://github.com/Rajupatil9552/Restaurant-Recommendation-System" class="btn btn-sm btn-outline-primary">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="portfolio-item">
+                        <img src="assets/Virtual-Classrooms-Future-Of-Learning.png" alt="Project 5" class="portfolio-img">
+                        <div class="p-3">
+                            <h5>AWS-hosted Virtual Classroom and Learning Platform</h5>
+                            <p>AWS-hosted virtual classroom platform with real-time collaboration tools</p>
+                            <a href="https://github.com/Rajupatil9552/AWS-hosted-Virtual-Classroom-and-Learning--Platform.git" class="btn btn-sm btn-outline-primary">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="portfolio-item">
+                        <img src="assets/portfolio.webp" alt="Project 6" class="portfolio-img">
+                        <div class="p-3">
+                            <h5>Personal Portfolio Website</h5>
+                            <p>Showcase of my projects, skills, and achievements as a Full Stack Developer. </p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">View Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title text-center">Get In Touch</h2>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="contact-info">
+                        <i class="fas fa-map-marker-alt contact-icon"></i>
+                        <h5>Location</h5>
+                        <p>Pune, India</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="contact-info">
+                        <i class="fas fa-envelope contact-icon"></i>
+                        <h5>Email</h5>
+                        <p>rajupatil0199@gmail.com</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="contact-info">
+                        <i class="fas fa-phone contact-icon"></i>
+                        <h5>Phone</h5>
+                        <p>+91 7249820199</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-lg-8 mx-auto">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Your Name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" placeholder="Your Email" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Subject" required>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links mb-4">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/rajupatil0199"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/Rajupatil9552"><i class="fab fa-github"></i></a>
+            </div>
+            <p>&copy; 2025 Raju Patil. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
